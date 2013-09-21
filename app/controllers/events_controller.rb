@@ -13,7 +13,7 @@ class EventsController < ApplicationController
     else
       @search = @conference.events.includes(:track).search(params[:q])
     end
-    @events = @search.result.paginate page: params[:page]
+    @events = @search.result.paginate page: params[:page], per_page: params[:per_page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +29,7 @@ class EventsController < ApplicationController
     else
       @search = @conference.events.associated_with(current_user.person).search(params[:q])
     end
-    @events = @search.result.paginate page: params[:page]
+    @events = @search.result.paginate page: params[:page], per_page: params[:per_page]
   end
 
   # events as pdf
@@ -50,7 +50,7 @@ class EventsController < ApplicationController
   def ratings
     authorize! :read, EventRating
     @search = @conference.events.search(params[:q])
-    @events = @search.result.paginate page: params[:page]
+    @events = @search.result.paginate page: params[:page], per_page: params[:per_page]
 
     # total ratings:
     @events_total = @conference.events.count
@@ -66,7 +66,7 @@ class EventsController < ApplicationController
   def feedbacks
     authorize! :read, EventFeedback
     @search = @conference.events.accepted.search(params[:q])
-    @events = @search.result.paginate page: params[:page]
+    @events = @search.result.paginate page: params[:page], per_page: params[:per_page]
   end
 
   # start batch event review

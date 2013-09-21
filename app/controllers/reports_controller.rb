@@ -44,7 +44,7 @@ class ReportsController < ApplicationController
     unless r.nil? or r.empty?
       @search = r.search(params[:q])
       @search_count = r.count
-      @events = @search.result.paginate page: params[:page]
+      @events = @search.result.paginate page: params[:page], per_page: params[:per_page]
     end
     render :show
   end
@@ -73,7 +73,7 @@ class ReportsController < ApplicationController
     unless r.nil? or r.empty?
       @search = r.search(params[:q])
       @search_count = r.length
-      @people = @search.result.paginate page: params[:page]
+      @people = @search.result.paginate page: params[:page], per_page: params[:per_page]
     end
     render :show
   end

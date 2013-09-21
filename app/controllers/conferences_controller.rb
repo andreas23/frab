@@ -15,7 +15,7 @@ class ConferencesController < ApplicationController
     else
       @search = Conference.search(params[:q])
     end
-    @conferences = @search.result.paginate page: params[:page]
+    @conferences = @search.result.paginate page: params[:page], per_page: params[:per_page]
 
     respond_to do |format|
       format.html # index.html.erb
